@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Artorias — Omarchy theme preview</title>
+<style>
+  /* ---- colors.toml (proposed) ---- */
+  :root {
+    --accent:            #3a5d84;
+    --selection:         #d7dde6;
+    --muted:             #68798c;
+
+    --bg:                #f2f3f7;
+    --bg-dark:           #e7eaf0;
+    --bg-darker:         #dbe0e6;
+    --bg-lighter:        #f9fafc;
+
+    --fg:                #121f2f;
+    --fg-dark:           #415163;
+    --fg-light:          #1e324c;
+    --fg-bright:         #0a1220;
+
+    --red:               #1e324c;
+    --yellow:            #324a63;
+    --orange:            #26374d;
+    --green:             #3a5d84;
+    --cyan:              #607489;
+    --blue:              #2b4a6f;
+    --magenta:           #415163;
+    --brown:             #68798c;
+
+    --bright-red:        #26374d;
+    --bright-yellow:     #3a5d84;
+    --bright-green:      #607489;
+    --bright-cyan:       #768799;
+    --bright-blue:       #324a63;
+    --bright-magenta:    #415163;
+
+    --mono: ui-monospace, "JetBrainsMono Nerd Font", "JetBrains Mono", "Cascadia Code", Menlo, Consolas, monospace;
+    --ui: "Inter", "Cantarell", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--ui);
+    background: #e9ebf0;
+    color: var(--fg);
+    padding: 48px 24px 96px;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; }
+
+  h1 { font-size: 44px; letter-spacing: -0.02em; color: var(--fg-bright); }
+  h2 { font-size: 15px; text-transform: uppercase; letter-spacing: 0.14em;
+       color: var(--muted); margin: 56px 0 16px; font-weight: 600; }
+  .sub { color: var(--fg-dark); margin-top: 6px; font-size: 15px; }
+
+  /* ---- hero ---- */
+  .hero { display: grid; grid-template-columns: 320px 1fr; gap: 28px; align-items: center; }
+  .hero img { width: 100%; border-radius: 10px; display: block;
+              outline: 2px solid var(--accent); outline-offset: 0; }
+  .badge { display: inline-block; margin-top: 14px; font-family: var(--mono); font-size: 12px;
+           padding: 4px 10px; border-radius: 99px; background: var(--selection); color: var(--fg-light); }
+
+  /* ---- palette cards ---- */
+  .pal { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .sw { border-radius: 8px; overflow: hidden; background: var(--bg-lighter);
+        border: 1px solid var(--bg-darker); }
+  .sw .chip { height: 56px; display: flex; align-items: flex-end; padding: 8px; }
+  .sw .meta { padding: 8px 10px 10px; }
+  .sw .name { font-size: 12px; font-weight: 600; color: var(--fg); }
+  .sw .hex  { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .sw .use  { font-size: 11px; color: var(--fg-dark); margin-top: 4px; }
+
+  /* ---- desktop mockup ---- */
+  .screen { position: relative; border-radius: 12px; overflow: hidden;
+            aspect-ratio: 16/10; background: url("backgrounds/1-artorias.jpg") center/cover;
+            box-shadow: 0 24px 60px rgba(18,31,47,.25); }
+  .bar { height: 34px; display: flex; align-items: center; gap: 18px; padding: 0 14px;
+         background: rgba(231,234,240,.72); backdrop-filter: blur(8px);
+         font-family: var(--mono); font-size: 12px; color: var(--fg); }
+  .bar .ws { display: flex; gap: 8px; }
+  .bar .ws b { font-weight: 500; padding: 2px 8px; border-radius: 6px; color: var(--muted); }
+  .bar .ws b.on { background: var(--accent); color: var(--bg-lighter); }
+  .bar .clock { margin-left: auto; }
+  .bar .tray { display: flex; gap: 12px; color: var(--fg-dark); }
+
+  .win { position: absolute; border-radius: 10px; overflow: hidden; font-family: var(--mono); }
+  .win.term { left: 5%; top: 16%; width: 58%; height: 66%;
+              outline: 2px solid var(--accent);
+              background: rgba(242,243,247,.96); }
+  .win.editor { right: 5%; top: 26%; width: 34%; height: 56%;
+                outline: 2px solid var(--muted);
+                background: rgba(249,250,252,.96); }
+  .title { display: flex; align-items: center; gap: 6px; padding: 8px 12px; font-size: 12px;
+           color: var(--fg-dark); background: var(--bg-dark); }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .title .t { margin-left: 8px; color: var(--muted); }
+  .body { padding: 12px 14px; font-size: 12.5px; line-height: 1.65; color: var(--fg); }
+  .p { color: var(--green); }        /* prompt user@host */
+  .path { color: var(--blue); }
+  .dim { color: var(--muted); }
+  .err { color: var(--red); }
+  .ok  { color: var(--green); }
+  .warn{ color: var(--yellow); }
+  .cur { display: inline-block; width: 8px; height: 15px; vertical-align: -2px;
+         background: var(--accent); animation: blink 1.1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  kbd { display: inline-block; font-size: 11px; padding: 1px 6px; border-radius: 4px;
+        background: var(--selection); color: var(--fg-light); }
+
+  /* editor */
+  .code { font-size: 12px; line-height: 1.7; }
+  .c-com { color: var(--muted); }
+  .c-key { color: var(--accent); }
+  .c-str { color: var(--bright-cyan); }
+  .c-num { color: var(--bright-magenta); }
+  .c-fn  { color: var(--fg-light); font-weight: 600; }
+
+  /* ---- ansi table ---- */
+  .ansi { display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; }
+  .ansi div { border-radius: 6px; padding: 10px 8px; font-family: var(--mono); font-size: 10px;
+              text-align: center; border: 1px solid var(--bg-darker); }
+  .ansi small { display: block; margin-top: 6px; font-size: 9px; opacity: .75; }
+
+  .note { margin-top: 56px; padding: 16px 18px; border-left: 3px solid var(--accent);
+          background: var(--bg-lighter); border-radius: 0 8px 8px 0; color: var(--fg-dark);
+          font-size: 14px; line-height: 1.6; }
+  code { font-family: var(--mono); background: var(--selection); padding: 1px 5px; border-radius: 4px; }
+
+  /* screenshot mode: ?#preview renders only the desktop, full-viewport */
+  body.shot { padding: 0; background: #000; overflow: hidden; }
+  body.shot .wrap { max-width: none; }
+  body.shot .wrap > *:not(.screen) { display: none; }
+  body.shot .screen { border-radius: 0; aspect-ratio: auto; width: 100vw; height: 100vh; box-shadow: none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <img src="backgrounds/1-artorias.jpg" alt="Artorias artwork">
+    <div>
+      <h1>Artorias</h1>
+      <p class="sub">Omarchy theme proposal &mdash; light, abyss blue, steel grey.<br>
+      All colors sampled from the knight artwork (the wolf's cloak and sword).</p>
+      <span class="badge">mode = "light" &nbsp;·&nbsp; accent = #3a5d84</span>
+    </div>
+  </div>
+
+  <h2>Palette</h2>
+  <div class="pal" id="pal"></div>
+
+  <h2>Desktop</h2>
+  <div class="screen">
+    <div class="bar">
+      <span class="ws"><b class="on">1</b><b>2</b><b>3</b><b>4</b><b>5</b></span>
+      <span class="clock">Tue 29 Sep&nbsp;&nbsp;14:32</span>
+      <span class="tray"><span>vol 56%</span><span>bt</span><span>batt 100%</span></span>
+    </div>
+
+    <div class="win term">
+      <div class="title">
+        <span class="dot" style="background:var(--red)"></span>
+        <span class="dot" style="background:var(--yellow)"></span>
+        <span class="dot" style="background:var(--green)"></span>
+        <span class="t">dh@artorias : ~</span>
+      </div>
+      <div class="body">
+        <div><span class="p">dh@artorias</span> <span class="path">~</span> $ fastfetch</div>
+        <div class="dim">      ▗▄▄▖      dh@artorias</div>
+        <div class="dim">    ▗█▀  ▀█▖    ───────────────</div>
+        <div class="dim">   ▐█  ▂▂  █▌   OS      Omarchy</div>
+        <div class="dim">   ▐█  ▀▀  █▌   WM      Hyprland</div>
+        <div class="dim">    ▝█▄  ▄█▘    Theme   Artorias</div>
+        <div class="dim">      ▝▀▀▘      Terminal Alacritty</div>
+        <br>
+        <div><span class="p">dh@artorias</span> <span class="path">~</span> $ git status</div>
+        <div>On branch <span class="ok">main</span></div>
+        <div>Changes to be committed:</div>
+        <div>&nbsp;&nbsp;<span class="ok">modified:&nbsp;&nbsp; colors.toml</span></div>
+        <div>Untracked files:</div>
+        <div>&nbsp;&nbsp;<span class="err">backgrounds/artorias.jpg</span></div>
+        <br>
+        <div><span class="p">dh@artorias</span> <span class="path">~</span> $ omarchy theme current</div>
+        <div>Artorias <span class="dim">(light)</span></div>
+        <div><span class="p">dh@artorias</span> <span class="path">~</span> $ <span class="cur"></span></div>
+      </div>
+    </div>
+
+    <div class="win editor">
+      <div class="title">
+        <span class="dot" style="background:var(--red)"></span>
+        <span class="dot" style="background:var(--yellow)"></span>
+        <span class="dot" style="background:var(--green)"></span>
+        <span class="t">colors.toml</span>
+      </div>
+      <div class="body code">
+        <div><span class="c-com"># Abyss blue over snow</span></div>
+        <div><span class="c-key">mode</span> = <span class="c-str">"light"</span></div>
+        <div>&nbsp;</div>
+        <div><span class="c-key">accent</span> = <span class="c-str">"#3a5d84"</span></div>
+        <div><span class="c-key">selection</span> = <span class="c-str">"#d7dde6"</span></div>
+        <div><span class="c-key">muted</span> = <span class="c-str">"#68798c"</span></div>
+        <div>&nbsp;</div>
+        <div><span class="c-key">background</span> = <span class="c-str">"#f2f3f7"</span></div>
+        <div><span class="c-key">foreground</span> = <span class="c-str">"#121f2f"</span></div>
+        <div>&nbsp;</div>
+        <div><span class="c-com"># 16 ANSI steps kept</span></div>
+        <div><span class="c-com"># in the cloak's blues</span></div>
+      </div>
+    </div>
+  </div>
+
+  <h2>ANSI Colors</h2>
+  <div class="ansi" id="ansi"></div>
+
+  <div class="note">
+    <b>Review notes.</b> Two choices worth checking:
+    the ANSI palette is intentionally <b>monochrome blue</b> (like Snow is monochrome grey) so
+    terminals stay faithful to the artwork &mdash; every red/green/yellow is a different step of the
+    same abyss blue. And the base background is the artwork's paper white
+    <code>#f2f3f7</code>, not pure <code>#ffffff</code>.
+    Tell me what to change and I'll then write <code>colors.toml</code>, <code>icons.theme</code> and the repo.
+  </div>
+
+</div>
+<script>
+  if (location.hash === "#preview") document.body.classList.add("shot");
+
+  const colors = [
+    ["accent",            "#3a5d84", "window border, cursor, highlights"],
+    ["selection",         "#d7dde6", "text selection, chips"],
+    ["muted",             "#68798c", "inactive borders, dim text"],
+    ["background",        "#f2f3f7", "terminal / window base"],
+    ["dark_background",   "#e7eaf0", "title bars, panels"],
+    ["darker_background", "#dbe0e6", "status bar, dividers"],
+    ["lighter_background","#f9fafc", "cards, raised surfaces"],
+    ["foreground",        "#121f2f", "body text"],
+    ["dark_foreground",   "#415163", "secondary text"],
+    ["light_foreground",  "#1e324c", "brightness-variant text"],
+    ["bright_foreground", "#0a1220", "strongest text"],
+    ["brown",             "#68798c", "ANSI bright black"],
+  ];
+  document.getElementById("pal").innerHTML = colors.map(([n,h,u]) => `
+    <div class="sw">
+      <div class="chip" style="background:${h}"></div>
+      <div class="meta"><div class="name">${n}</div><div class="hex">${h}</div><div class="use">${u}</div></div>
+    </div>`).join("");
+
+  const ansi = [
+    ["black",         "--fg",             "#121f2f"],
+    ["red",           "--red",            "#1e324c"],
+    ["green",         "--green",          "#3a5d84"],
+    ["yellow",        "--yellow",         "#324a63"],
+    ["blue",          "--blue",           "#2b4a6f"],
+    ["magenta",       "--magenta",        "#415163"],
+    ["cyan",          "--cyan",           "#607489"],
+    ["white",         "--bright-cyan",    "#768799"],
+    ["br black",      "--brown",          "#68798c"],
+    ["br red",        "--bright-red",     "#26374d"],
+    ["br green",      "--bright-green",   "#607489"],
+    ["br yellow",     "--bright-yellow",  "#3a5d84"],
+    ["br blue",       "--bright-blue",    "#324a63"],
+    ["br magenta",    "--bright-magenta", "#415163"],
+    ["br cyan",       "--bright-cyan",    "#768799"],
+    ["br white",      "--bg-darker",      "#dbe0e6"],
+  ];
+  document.getElementById("ansi").innerHTML = ansi.map(([n,_,h]) => {
+    const dark = ["#121f2f","#1e324c","#3a5d84","#324a63","#2b4a6f","#415163","#607489","#768799","#68798c","#26374d"].includes(h);
+    return `<div style="background:${h};color:${dark ? "#f2f3f7" : "#121f2f"}">${n}<small>${h}</small></div>`;
+  }).join("");
+</script>
+</body>
+</html>
