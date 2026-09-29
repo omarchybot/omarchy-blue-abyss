@@ -2,7 +2,7 @@
 
 A light abyss-blue theme for [Omarchy Quattro](https://github.com/omacom/omarchy), drawn from the knight's cloak over snow.
 
-![Artorias preview](preview.png)
+![Artorias preview](artorias.webp)
 
 ## Install
 
