@@ -1,13 +1,13 @@
-# Artorias
+# Blue Abyss
 
-A light abyss-blue theme for [Omarchy Quattro](https://github.com/omacom/omarchy), drawn from the knight's cloak over snow.
+A light abyss-blue theme for [Omarchy Quattro](https://github.com/omacom/omarchy), with an original ink-brush wallpaper in the same palette.
 
-![Artorias preview](artorias.webp)
+![Blue Abyss preview](blue-abyss.webp)
 
 ## Install
 
 ```bash
-omarchy theme install https://github.com/shareil23/omarchy-artorias
+omarchy theme install https://github.com/shareil23/omarchy-blue-abyss
 ```
 
 ## Related
